@@ -55,9 +55,5 @@ public class Bid {
 		this.description = description;
 	}
 
-	@Override
-	public String toString() {
-		return "Bid [id=" + id + ", item=" + item + ", description=" + description + "]";
-	}
 
 }
