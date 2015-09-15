@@ -1,23 +1,24 @@
 package haus.maus;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity(name="ITEM")
+@Entity(name = "ITEM")
 public class Item {
 	@Id
+	@GeneratedValue
 	private long id;
-	@OneToMany(mappedBy ="item",cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy = "item", cascade = CascadeType.PERSIST)
 	private List<Bid> bids;
 
 	public Item() {
-		bids = new ArrayList<Bid>();
+		this.bids = new ArrayList<Bid>();
 	}
 
 	public long getId() {
@@ -32,8 +33,8 @@ public class Item {
 		return bids;
 	}
 
-	public void setBids(List<Bid> bids) {
-		this.bids = bids;
+	public void addBid(Bid bid) {
+		this.bids.add(bid);
 	}
 
 }

@@ -1,20 +1,30 @@
 package haus.maus;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity(name="BID")
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity(name = "BID")
 public class Bid {
 	@Id
+	@GeneratedValue
 	private long id;
 	@ManyToOne
-	@JoinColumn(name="ITEM_ID", nullable=false)
+	@JoinColumn(name = "ITEM_ID", nullable = false)
 	private Item item;
+	@Column(name = "DESCRIPTION")
+	private String description;
 
-	public Bid() {
-		// TODO Auto-generated constructor stub
+	public Bid(Item item, String description) {
+		super();
+		this.item = item;
+		this.description = description;
 	}
 
 	public long getId() {
@@ -31,6 +41,14 @@ public class Bid {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
