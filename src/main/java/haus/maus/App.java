@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class App {
 	public static void main(String[] args) {
 		List<Item> items = new ArrayList<Item>();
+
+		// create and persist items
 		Item item1 = new Item();
 		Item item2 = new Item();
 		Bid bidA = new Bid(item1, "Succesful bid Playstation 4.");
@@ -26,6 +29,10 @@ public class App {
 		items.add(item1);
 		items.add(item2);
 		saveAllItems(items);
+
+		// load items
+		Item item = loadItem(1);
+		System.out.println(item.toString());
 	}
 
 	public static void saveAllItems(List<Item> items) {
@@ -46,8 +53,23 @@ public class App {
 		}
 	}
 
-	public static void loadAllItems() {
-
+	public static Item loadItem(long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		Item item = null;
+		try {
+			transaction = session.beginTransaction();
+			item = session.get(Item.class, new Long(id));
+			if (item == null) {
+				throw new HibernateException("No item with id " + id + " exists!");
+			}
+			transaction.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return item;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -14,7 +15,7 @@ public class Item {
 	@Id
 	@GeneratedValue
 	private long id;
-	@OneToMany(mappedBy = "item", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Bid> bids;
 
 	public Item() {
@@ -35,6 +36,11 @@ public class Item {
 
 	public void addBid(Bid bid) {
 		this.bids.add(bid);
+	}
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", bids=" + bids + "]";
 	}
 
 }

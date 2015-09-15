@@ -21,6 +21,10 @@ public class Bid {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
+	// default constructor must be present for hibernate
+	public Bid() {
+	}
+
 	public Bid(Item item, String description) {
 		super();
 		this.item = item;
@@ -49,6 +53,11 @@ public class Bid {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "Bid [id=" + id + ", item=" + item + ", description=" + description + "]";
 	}
 
 }
