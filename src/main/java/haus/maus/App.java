@@ -17,6 +17,9 @@ public class App {
 			bidA.setId(1);
 			bidA.setItem(item);
 			Bid bidB = new Bid();
+			Bid bidC = new Bid();
+			bidC.setId(8);
+			bidC.setItem(item);
 			bidB.setId(2);
 			bidB.setItem(item);
 			item.getBids().add(bidA);
